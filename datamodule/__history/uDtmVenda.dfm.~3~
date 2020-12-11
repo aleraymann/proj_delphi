@@ -1,0 +1,11 @@
+object dtmVenda: TdtmVenda
+  OldCreateOrder = False
+  Height = 368
+  Width = 570
+  object QryCliente: TZQuery
+    Connection = dtmPrincipal.ConexaoDB
+    Params = <>
+    Left = 64
+    Top = 48
+  end
+end

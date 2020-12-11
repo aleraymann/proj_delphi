@@ -1,0 +1,48 @@
+unit uCadProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.Mask, Vcl.ComCtrls, Vcl.DBCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+  RxToolEdit, RxCurrEdit;
+
+type
+  TfrmCadastroProduto = class(TformTelaHeranca)
+    qryListagemprodutoId: TIntegerField;
+    qryListagemnome: TWideStringField;
+    qryListagemdescricao: TWideStringField;
+    qryListagemvalor: TFloatField;
+    qryListagemquantidade: TFloatField;
+    qryListagemcategoriaId: TIntegerField;
+    qryListagemDescricaoCategoria: TWideStringField;
+    edtClienteId: TLabeledEdit;
+    edtNome: TLabeledEdit;
+    edtDescricao: TMemo;
+    Descrição: TLabel;
+    CurrencyEdit1: TCurrencyEdit;
+    edtQuantidade: TCurrencyEdit;
+    Valor: TLabel;
+    Label1: TLabel;
+    lkpCategoria: TDBLookupComboBox;
+    Label2: TLabel;
+    QryCategoria: TZQuery;
+    dtsCategoria: TDataSource;
+    QryCategoriacategoriaID: TIntegerField;
+    QryCategoriadescricao: TWideStringField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroProduto: TfrmCadastroProduto;
+
+implementation
+
+{$R *.dfm}
+
+end.

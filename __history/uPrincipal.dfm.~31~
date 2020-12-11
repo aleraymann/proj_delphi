@@ -1,0 +1,111 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Menu Principal'
+  ClientHeight = 426
+  ClientWidth = 753
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = mainPrincipal
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object stpPrincipal: TStatusBar
+    Left = 0
+    Top = 407
+    Width = 753
+    Height = 19
+    Panels = <
+      item
+        Width = 150
+      end>
+  end
+  object mainPrincipal: TMainMenu
+    Left = 504
+    Top = 24
+    object Cadastro1: TMenuItem
+      Caption = 'Cadastro'
+      object Usurio1: TMenuItem
+        Caption = 'Usu'#225'rio'
+        OnClick = Usurio1Click
+      end
+      object AlterarSenha1: TMenuItem
+        Caption = 'Alterar Senha'
+        OnClick = AlterarSenha1Click
+      end
+      object N5: TMenuItem
+        Caption = '-'
+      end
+      object Cliente1: TMenuItem
+        Caption = 'Cliente'
+        OnClick = Cliente1Click
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object Categoria1: TMenuItem
+        Caption = 'Categoria'
+        OnClick = Categoria1Click
+      end
+      object Produto1: TMenuItem
+        Caption = 'Produto'
+        OnClick = Produto1Click
+      end
+      object N2: TMenuItem
+        Caption = '-'
+      end
+      object menuFechar: TMenuItem
+        Caption = 'Fechar'
+        OnClick = menuFecharClick
+      end
+    end
+    object Movimentao1: TMenuItem
+      Caption = 'Movimenta'#231#227'o'
+      object Vendas1: TMenuItem
+        Caption = 'Vendas'
+        OnClick = Vendas1Click
+      end
+    end
+    object Relatrios1: TMenuItem
+      Caption = 'Relat'#243'rios'
+      object Categoria: TMenuItem
+        Caption = 'Categoria'
+        OnClick = CategoriaClick
+      end
+      object Cliente2: TMenuItem
+        Caption = 'Cliente'
+        OnClick = Cliente2Click
+      end
+      object FichadeClientes1: TMenuItem
+        Caption = 'Ficha de Clientes'
+        OnClick = FichadeClientes1Click
+      end
+      object N3: TMenuItem
+        Caption = '-'
+      end
+      object Produto2: TMenuItem
+        Caption = 'Produto'
+        OnClick = Produto2Click
+      end
+      object ProdutoporCategoria1: TMenuItem
+        Caption = 'Produto por Categoria'
+        OnClick = ProdutoporCategoria1Click
+      end
+      object N4: TMenuItem
+        Caption = '-'
+      end
+      object VendaporData1: TMenuItem
+        Caption = 'Venda por Data'
+        OnClick = VendaporData1Click
+      end
+    end
+  end
+end

@@ -1,0 +1,72 @@
+inherited frmCadUsuario: TfrmCadUsuario
+  Caption = 'Cadastro de Usu'#225'rio'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlRodape: TPanel
+    inherited btnNavigator: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+  inherited pgcPrincipal: TPageControl
+    ActivePage = tabManutencao
+    inherited tabListagem: TTabSheet
+      inherited grdListagem: TDBGrid
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'usuarioId'
+            Width = 97
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'nome'
+            Visible = True
+          end>
+      end
+    end
+    inherited tabManutencao: TTabSheet
+      ExplicitLeft = 7
+      ExplicitTop = 27
+      ExplicitWidth = 781
+      ExplicitHeight = 403
+      object edtUsuarioId: TLabeledEdit
+        Tag = 1
+        Left = 16
+        Top = 32
+        Width = 121
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'C'#243'digo'
+        MaxLength = 10
+        NumbersOnly = True
+        TabOrder = 0
+      end
+    end
+  end
+  inherited qryListagem: TZQuery
+    SQL.Strings = (
+      'select usuarioId,'
+      ' nome,'
+      ' senha'
+      'from usuarios')
+    object qryListagemusuarioId: TIntegerField
+      DisplayLabel = 'Codigo'
+      FieldName = 'usuarioId'
+      ReadOnly = True
+    end
+    object qryListagemnome: TWideStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'nome'
+      Required = True
+      Size = 50
+    end
+    object qryListagemsenha: TWideStringField
+      DisplayLabel = 'Senha'
+      FieldName = 'senha'
+      Required = True
+      Size = 50
+    end
+  end
+end

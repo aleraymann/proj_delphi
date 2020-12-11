@@ -1,0 +1,61 @@
+inherited frmCadastroProduto: TfrmCadastroProduto
+  Caption = 'Cadastro de Produtos'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlRodape: TPanel
+    inherited btnNavigator: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+  inherited pgcPrincipal: TPageControl
+    inherited tabListagem: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 787
+      ExplicitHeight = 409
+    end
+    inherited tabManutencao: TTabSheet
+      ExplicitLeft = 7
+      ExplicitTop = 27
+      ExplicitWidth = 781
+      ExplicitHeight = 403
+    end
+  end
+  inherited qryListagem: TZQuery
+    SQL.Strings = (
+      #9'select p.produtoId,'
+      #9#9'   p.nome,'
+      #9#9'   p.descricao,'
+      #9#9'   p.valor,'
+      #9#9'   p.quantidade,'
+      #9#9'   p.categoriaId,'
+      #9#9'   c.descricao As DescricaoCategoria'
+      #9'from produtos as p'
+      #9'left join categorias as c on c.categoriaID = p.categoriaId')
+    object qryListagemprodutoId: TIntegerField
+      FieldName = 'produtoId'
+      ReadOnly = True
+    end
+    object qryListagemnome: TWideStringField
+      FieldName = 'nome'
+      Size = 60
+    end
+    object qryListagemdescricao: TWideStringField
+      FieldName = 'descricao'
+      Size = 255
+    end
+    object qryListagemvalor: TFloatField
+      FieldName = 'valor'
+    end
+    object qryListagemquantidade: TFloatField
+      FieldName = 'quantidade'
+    end
+    object qryListagemcategoriaId: TIntegerField
+      FieldName = 'categoriaId'
+    end
+    object qryListagemDescricaoCategoria: TWideStringField
+      FieldName = 'DescricaoCategoria'
+      Size = 30
+    end
+  end
+end

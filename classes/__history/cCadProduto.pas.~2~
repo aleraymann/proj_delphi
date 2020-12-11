@@ -1,0 +1,219 @@
+unit cCadProduto;
+
+interface
+
+uses  System.Classes,
+      Vcl.Controls,
+      Vcl.ExtCtrls,
+      Vcl.Dialogs,
+      System.SysUtils,
+      ZAbstractConnection,
+      ZConnection,
+      ZAbstractRODataset, ZAbstractDataset, ZDataset;
+
+       type
+  TProduto = class //declaracao de classe
+  private
+      //variaveis privadas pra essa classe
+    ConexaoDB:TZConnection;
+    F_produtoId:Integer;
+		F_nome:String;
+		F_descricao:String;
+		F_valor:Double;
+		F_quantidade:Double;
+		F_categoriaId:Integer;
+
+
+  public
+     //variaveis publicas
+      constructor Create(aConexao:TZConnection); //construtor da classe
+      destructor Destroy; override; //destroi a classe, sobrescrever
+      function Inserir:Boolean;
+      function Atualizar:Boolean;
+      function Apagar:Boolean;
+      function Selecionar(id:Integer):Boolean;
+
+
+  published
+      //variaveis publicas para propriedades da classe
+      //fornecer informacoes em runtime
+      property codigo:Integer             read  F_produtoId       write F_produtoId;
+      property nome:string                read  F_nome            write F_nome;
+      property descricao:string           read  F_descricao       write F_descricao;
+      property valor:Double               read  F_valor           write F_valor;
+      property quantidade:Double          read  F_quantidade      write F_quantidade;
+      property categoriaId:integer         read  F_categoriaId     write F_categoriaId;
+
+  end;
+
+
+implementation
+
+{$region 'contructor e desctructor'}
+constructor TProduto.Create(aConexao:TZConnection);
+begin
+      ConexaoDB:=aConexao;
+end;
+
+destructor TProduto.Destroy;
+begin
+  inherited;
+end;
+{$endregion}
+
+
+{$region 'cruds'}
+function TProduto.Apagar: Boolean;
+var Qry:TZQuery;
+begin
+if MessageDlg('Apagar o Registro: '+#13+#13+
+                'Código: '+IntToStr(F_produtoId)+#13+
+                'Nome: '+F_nome,mtConfirmation,[mbYes, mbNo],0)=mrNo then begin
+     Result:=false;
+     abort;
+  end;
+
+  try
+    Result:=true;
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('DELETE FROM produtos '+
+                ' WHERE produtoId=:produtoId ');
+    Qry.ParamByName('produtoId').AsInteger :=F_produtoId;
+    Try
+     Qry.ExecSQL;
+    Except
+      Result:=false;
+    End;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+function TProduto.Atualizar: Boolean;
+    var Qry:TZQuery;
+begin
+  try
+    Result:=true;
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('UPDATE produtos '+
+                ' SET nome=:nome '+
+                '     ,descricao=:descricao '+
+                '     ,valor=:valor '+
+                '     ,quantidade=:quantidade '+
+                '     ,categoriaId=:categoriaId '+
+                ' WHERE produtoId=:produtoId ');
+    Qry.ParamByName('produtoId').AsInteger:= Self.F_produtoId;
+    Qry.ParamByName('nome').AsString:= Self.F_nome;
+    Qry.ParamByName('descricao').AsString:= Self.F_descricao;
+    Qry.ParamByName('valor').AsFloat:= Self.F_valor;
+    Qry.ParamByName('quantidade').AsFloat:= Self.F_quantidade;
+    Qry.ParamByName('categoriaId').AsInteger:= Self.F_categoriaId;
+
+
+    Try
+      Qry.ExecSQL;
+    Except
+      Result:=false;
+    End;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+
+
+function Tproduto.Inserir: Boolean;
+   var Qry:TZQuery;
+begin
+  try
+    Result:=true;
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+
+    Qry.SQL.Add('INSERT INTO clientes (nome, '+
+                                       'descricao, '+
+                                       'valor, '+
+                                       'quantidade, '+
+                                       'categoriaId) '+
+                        'VALUES        (:nome, '+
+                                       ':descricao, '+
+                                       ':valor, '+
+                                       ':quantidade, '+
+                                       ':categoriaId)');
+
+    Qry.ParamByName('nome').AsString:= Self.F_nome;
+    Qry.ParamByName('descricao').AsString:= Self.F_descricao;
+    Qry.ParamByName('valor').AsString:= Self.F_valor;
+    Qry.ParamByName('quantidade').AsString:= Self.F_quantidade;
+    Qry.ParamByName('categoriaId').AsString:= Self.F_categoriaId;
+
+
+    Try
+      Qry.ExecSQL;
+    Except
+      Result:=false;
+    End;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+function TCliente.Selecionar(id: Integer): Boolean;
+var Qry:TZQuery;
+begin
+  try
+    Result:=true;
+    Qry:=TZQuery.Create(nil);
+    Qry.Connection:=ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('SELECT clienteId, '+
+                '       nome, '+
+                 '       endereco, '+
+                  '       cidade, '+
+                   '       bairro, '+
+                    '       estado, '+
+                     '       cep, '+
+                      '       telefone, '+
+                       '       email, '+
+                        '       dataNascimento '+
+                '  FROM clientes '+
+                ' WHERE clienteId=:clienteId ');
+
+    Qry.ParamByName('clienteId').AsInteger:=id;
+    Try
+      Qry.Open;
+
+      Self.F_clienteId        := Qry.FieldByName('clienteId').AsInteger;
+      Self.F_nome             := Qry.FieldByName('nome').AsString;
+      Self.F_endereco         := Qry.FieldByName('endereco').AsString;
+      Self.F_cidade           := Qry.FieldByName('cidade').AsString;
+      Self.F_bairro           := Qry.FieldByName('bairro').AsString;
+      Self.F_estado           := Qry.FieldByName('estado').AsString;
+      Self.F_cep              := Qry.FieldByName('cep').AsString;
+      Self.F_telefone         := Qry.FieldByName('telefone').AsString;
+      Self.F_email            := Qry.FieldByName('email').AsString;
+      Self.F_dataNascimento   := Qry.FieldByName('dataNascimento').AsDateTime;
+    Except
+      Result:=false;
+    End;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+ {$endregion}
+
+
+end.

@@ -1,0 +1,249 @@
+inherited frmCadCliente: TfrmCadCliente
+  Caption = 'Cadastro de Cliente'
+  ClientHeight = 319
+  ExplicitHeight = 348
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlRodape: TPanel
+    Top = 281
+    Height = 38
+    ExplicitTop = 281
+    ExplicitHeight = 38
+    inherited btnNavigator: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+  inherited pgcPrincipal: TPageControl
+    Height = 281
+    ActivePage = tabManutencao
+    ExplicitHeight = 281
+    inherited tabListagem: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 787
+      ExplicitHeight = 253
+      inherited grdListagem: TDBGrid
+        Height = 204
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'clienteId'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'nome'
+            Width = 441
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'cep'
+            Width = 101
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'telefone'
+            Width = 273
+            Visible = True
+          end>
+      end
+    end
+    inherited tabManutencao: TTabSheet
+      ExplicitLeft = 7
+      ExplicitTop = 27
+      ExplicitWidth = 781
+      ExplicitHeight = 247
+      object Label1: TLabel
+        Left = 456
+        Top = 70
+        Width = 19
+        Height = 13
+        Caption = 'CEP'
+      end
+      object Label2: TLabel
+        Left = 464
+        Top = 89
+        Width = 19
+        Height = 13
+        Caption = 'CEP'
+      end
+      object Label3: TLabel
+        Left = 456
+        Top = 173
+        Width = 42
+        Height = 13
+        Caption = 'Telefone'
+      end
+      object Label4: TLabel
+        Left = 600
+        Top = 173
+        Width = 96
+        Height = 13
+        Caption = 'Data de Nascimento'
+      end
+      object edtNome: TLabeledEdit
+        Tag = 2
+        Left = 16
+        Top = 88
+        Width = 425
+        Height = 21
+        EditLabel.Width = 27
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Nome'
+        MaxLength = 30
+        TabOrder = 0
+      end
+      object edtClienteId: TLabeledEdit
+        Tag = 1
+        Left = 16
+        Top = 32
+        Width = 121
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'C'#243'digo'
+        MaxLength = 10
+        NumbersOnly = True
+        TabOrder = 1
+      end
+      object edtCEP: TMaskEdit
+        Left = 456
+        Top = 88
+        Width = 81
+        Height = 21
+        EditMask = '99.999-999;1;_'
+        MaxLength = 10
+        TabOrder = 2
+        Text = '  .   -   '
+      end
+      object edtEndereco: TLabeledEdit
+        Left = 16
+        Top = 136
+        Width = 425
+        Height = 21
+        EditLabel.Width = 45
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Endere'#231'o'
+        MaxLength = 30
+        TabOrder = 3
+      end
+      object edtBairro: TLabeledEdit
+        Left = 456
+        Top = 136
+        Width = 297
+        Height = 21
+        EditLabel.Width = 28
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Bairro'
+        MaxLength = 40
+        TabOrder = 4
+      end
+      object edtCidade: TLabeledEdit
+        Left = 551
+        Top = 88
+        Width = 202
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Cidade'
+        MaxLength = 50
+        TabOrder = 5
+      end
+      object edtEmail: TLabeledEdit
+        Left = 16
+        Top = 192
+        Width = 425
+        Height = 21
+        EditLabel.Width = 24
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Email'
+        MaxLength = 100
+        TabOrder = 6
+      end
+      object edtTelefone: TMaskEdit
+        Left = 456
+        Top = 192
+        Width = 129
+        Height = 21
+        EditMask = '(99)99999-9999;1;_'
+        MaxLength = 14
+        TabOrder = 7
+        Text = '(  )     -    '
+      end
+      object edtDataNascimento: TDateEdit
+        Left = 600
+        Top = 192
+        Width = 153
+        Height = 21
+        NumGlyphs = 2
+        CalendarStyle = csDialog
+        TabOrder = 8
+      end
+    end
+  end
+  inherited qryListagem: TZQuery
+    SQL.Strings = (
+      'select clienteId,'
+      #9#9'nome,'
+      #9#9'endereco,'
+      #9#9'cidade,'
+      #9#9'bairro,'
+      #9#9'estado,'
+      #9#9'cep,'
+      #9#9'telefone,  '
+      #9#9'email,'
+      #9#9'dataNascimento'
+      #9'from clientes')
+    object qryListagemclienteId: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'clienteId'
+      ReadOnly = True
+    end
+    object qryListagemnome: TWideStringField
+      DisplayLabel = 'Nome'
+      FieldName = 'nome'
+      Size = 60
+    end
+    object qryListagemendereco: TWideStringField
+      DisplayLabel = 'Endere'#231'o'
+      FieldName = 'endereco'
+      Size = 60
+    end
+    object qryListagemcidade: TWideStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'cidade'
+      Size = 50
+    end
+    object qryListagembairro: TWideStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'bairro'
+      Size = 40
+    end
+    object qryListagemestado: TWideStringField
+      DisplayLabel = 'Estado'
+      FieldName = 'estado'
+      Size = 2
+    end
+    object qryListagemcep: TWideStringField
+      DisplayLabel = 'CEP'
+      FieldName = 'cep'
+      Size = 10
+    end
+    object qryListagemtelefone: TWideStringField
+      DisplayLabel = 'Telefone'
+      FieldName = 'telefone'
+      Size = 14
+    end
+    object qryListagememail: TWideStringField
+      DisplayLabel = 'Email'
+      FieldName = 'email'
+      Size = 100
+    end
+    object qryListagemdataNascimento: TDateTimeField
+      DisplayLabel = 'Data de Nascimento'
+      FieldName = 'dataNascimento'
+    end
+  end
+end

@@ -1,0 +1,10 @@
+inherited formTelaHeranca1: TformTelaHeranca1
+  Caption = 'formTelaHeranca1'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlRodape: TPanel
+    inherited btnNavigator: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+end
