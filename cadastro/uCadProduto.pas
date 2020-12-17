@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
   ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.Grids, Vcl.DBGrids,
   Vcl.StdCtrls, Vcl.Mask, Vcl.ComCtrls, Vcl.DBCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  RxToolEdit, RxCurrEdit, cCadProduto, uEnum, uDtmConexao;
+  RxToolEdit, RxCurrEdit, cCadProduto, uEnum, uDtmConexao,cFuncao;
 
 type
   TfrmCadastroProduto = class(TformTelaHeranca)
@@ -32,12 +32,15 @@ type
     edtDescricao: TMemo;
     edtValor: TCurrencyEdit;
     edtQuantidade: TCurrencyEdit;
+    btnIncluirCategoria: TSpeedButton;
+    btnPesquisarCategoria: TSpeedButton;
     procedure btnAlterarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure pgcPrincipalChange(Sender: TObject);
+    procedure btnIncluirCategoriaClick(Sender: TObject);
+    procedure btnPesquisarCategoriaClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -56,7 +59,7 @@ implementation
 
 {$R *.dfm}
 
-uses cCadUsuario;
+uses cCadUsuario, uConCategoria, uPrincipal, uCadCategoria;
 
 {$region 'override'}
 
@@ -115,10 +118,11 @@ begin
   else if EstadoDoCadastro=ecAlterar then
      Result:= oProduto.Atualizar;
 end;
-      procedure TfrmCadastroProduto.pgcPrincipalChange(Sender: TObject);
+      procedure TfrmCadastroProduto.btnIncluirCategoriaClick(Sender: TObject);
 begin
   inherited;
-
+  TFuncao.CriarForm(TfrmCadCategoria, oUsuarioLogado, dtmPrincipal.ConexaoDB);
+  QryCategoria.Refresh;
 end;
 
 {$endregion}
@@ -149,6 +153,25 @@ procedure TfrmCadastroProduto.btnNovoClick(Sender: TObject);
 begin
   inherited;
   edtNome.SetFocus;
+
+end;
+
+procedure TfrmCadastroProduto.btnPesquisarCategoriaClick(Sender: TObject);
+begin
+  inherited;
+       try
+          frmConCategoria:=TfrmConCategoria.Create(Self);
+
+  if lkpCategoria.KeyValue<>Null then
+     frmConCategoria.aIniciarPesquisaId:=lkpCategoria.KeyValue;
+
+  frmConCategoria.ShowModal;
+
+  if frmConCategoria.aRetornarIdSelecionado<>UnAssigned then  //Não Atribuido
+     lkpCategoria.KeyValue:=frmConCategoria.aRetornarIdSelecionado;
+       finally
+          frmConCategoria.Release;
+       end;
 
 end;
 

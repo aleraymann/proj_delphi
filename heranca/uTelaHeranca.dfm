@@ -3,8 +3,8 @@ object formTelaHeranca: TformTelaHeranca
   Top = 0
   BorderStyle = bsDialog
   Caption = 'T'#237'tulo'
-  ClientHeight = 502
-  ClientWidth = 788
+  ClientHeight = 474
+  ClientWidth = 916
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,18 +20,18 @@ object formTelaHeranca: TformTelaHeranca
   TextHeight = 13
   object pnlRodape: TPanel
     Left = 0
-    Top = 461
-    Width = 788
+    Top = 433
+    Width = 916
     Height = 41
     Align = alBottom
     TabOrder = 0
     DesignSize = (
-      788
+      916
       41)
     object btnNovo: TBitBtn
       Tag = 99
       Left = 4
-      Top = 8
+      Top = 7
       Width = 80
       Height = 25
       Caption = '&Novo'
@@ -213,7 +213,7 @@ object formTelaHeranca: TformTelaHeranca
       OnClick = btnApagarClick
     end
     object btnFechar: TBitBtn
-      Left = 707
+      Left = 835
       Top = 8
       Width = 75
       Height = 25
@@ -262,7 +262,7 @@ object formTelaHeranca: TformTelaHeranca
   object pgcPrincipal: TPageControl
     Left = 0
     Top = 0
-    Width = 795
+    Width = 908
     Height = 437
     ActivePage = tabListagem
     Align = alCustom
@@ -272,7 +272,7 @@ object formTelaHeranca: TformTelaHeranca
       object pnlListagemTopo: TPanel
         Left = 0
         Top = 0
-        Width = 787
+        Width = 900
         Height = 49
         Align = alTop
         TabOrder = 0
@@ -327,12 +327,13 @@ object formTelaHeranca: TformTelaHeranca
             FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF94908F94908F94908F94
             908FFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
           TabOrder = 1
+          OnClick = btnPesquisarClick
         end
       end
       object grdListagem: TDBGrid
         Left = 0
         Top = 49
-        Width = 787
+        Width = 900
         Height = 360
         Align = alClient
         DataSource = dtsListagem
@@ -352,6 +353,10 @@ object formTelaHeranca: TformTelaHeranca
       AlignWithMargins = True
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 781
+      ExplicitHeight = 0
     end
   end
   object qryListagem: TZQuery

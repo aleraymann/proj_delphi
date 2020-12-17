@@ -1,7 +1,7 @@
 ﻿object frmRelCadProdutoComGrupoCategoria: TfrmRelCadProdutoComGrupoCategoria
   Left = 0
   Top = 0
-  Caption = 'frmRelCadProdutoComGrupoCategoria'
+  Caption = 'Rel. Produto por Categoria'
   ClientHeight = 661
   ClientWidth = 792
   Color = clBtnFace
@@ -57,7 +57,7 @@
     end
     object Rodapé: TRLBand
       Left = 38
-      Top = 305
+      Top = 323
       Width = 718
       Height = 64
       BandType = btFooter
@@ -113,7 +113,7 @@
       Left = 38
       Top = 113
       Width = 718
-      Height = 192
+      Height = 210
       DataFields = 'categoriaId'
       object RLBand3: TRLBand
         Left = 0
@@ -274,7 +274,7 @@
         Left = 0
         Top = 88
         Width = 718
-        Height = 92
+        Height = 90
         BandType = btSummary
         object RLDBResult1: TRLDBResult
           Left = 587
@@ -334,11 +334,19 @@
           Text = ''
         end
       end
+      object RLDraw4: TRLDraw
+        Left = 0
+        Top = 184
+        Width = 718
+        Height = 26
+        Align = faBottom
+        DrawKind = dkLine
+        Pen.Style = psDot
+      end
     end
   end
   object QryProdutosComGrupoCategoria: TZQuery
     Connection = dtmPrincipal.ConexaoDB
-    Active = True
     SQL.Strings = (
       'select produtos.produtoId,'
       '       produtos.nome,'

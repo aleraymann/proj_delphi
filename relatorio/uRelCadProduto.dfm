@@ -1,7 +1,7 @@
 ﻿object frmRelCadProduto: TfrmRelCadProduto
   Left = 0
   Top = 0
-  Caption = 'frmRelCadProduto'
+  Caption = 'Rel. Produto'
   ClientHeight = 661
   ClientWidth = 792
   Color = clBtnFace

@@ -37,7 +37,14 @@ uses
   cAtualizacaoCampoMSSQL in 'classes\cAtualizacaoCampoMSSQL.pas',
   cArquivoIni in 'classes\cArquivoIni.pas',
   cAcaoAcesso in 'classes\cAcaoAcesso.pas',
-  uCadAcaoAcesso in 'cadastro\uCadAcaoAcesso.pas' {frmCadAcaoAcesso};
+  uCadAcaoAcesso in 'cadastro\uCadAcaoAcesso.pas' {frmCadAcaoAcesso},
+  uUsuarioVsAcoes in 'login\uUsuarioVsAcoes.pas' {frmUsuarioVsAcoes},
+  uDtmGrafico in 'datamodule\uDtmGrafico.pas' {dtmGrafico: TDataModule},
+  cFuncao in 'classes\cFuncao.pas',
+  uTelaHerancaConsulta in 'heranca\uTelaHerancaConsulta.pas' {frmTelaHerancaConsulta},
+  uConCategoria in 'consulta\uConCategoria.pas' {frmConCategoria},
+  uConCliente in 'consulta\uConCliente.pas' {frmConCliente},
+  uConProduto in 'consulta\uConProduto.pas' {frmConProduto};
 
 {$R *.res}
 

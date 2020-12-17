@@ -75,8 +75,8 @@ begin
     Qry.Connection:=ConexaoDB;
     Qry.SQL.Clear;
     Qry.SQL.Add('DELETE FROM usuarios '+
-                ' WHERE usuarioId=:usuarioId ');
-    Qry.ParamByName('usuarioId').AsInteger :=F_usuarioId;
+                ' WHERE usuarioId =:usuarioId ');
+    Qry.ParamByName('usuarioId').AsInteger := F_usuarioId;
     Try
       ConexaoDB.StartTransaction;
       Qry.ExecSQL;

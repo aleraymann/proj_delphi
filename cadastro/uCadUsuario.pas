@@ -26,7 +26,7 @@ type
     { Private declarations }
     oUsuario:TUsuario;
     function Gravar(EstadoDoCadastro:TEstadoDoCadastro):boolean; override;
-    function Apagar: Boolean;
+    function Excluir: boolean; override;
 
   public
     { Public declarations }
@@ -39,15 +39,12 @@ implementation
 
 {$R *.dfm}
 
+uses cAcaoAcesso;
+
 
 { TfrmCadUsuario }
 
-function TfrmCadUsuario.Apagar: Boolean;
-begin
-  if oUsuario.Selecionar(QryListagem.FieldByName('usuarioId').AsInteger) then begin
-     Result:=oUsuario.Apagar;
-  end;
-end;
+
 
 function TfrmCadUsuario.Gravar(EstadoDoCadastro: TEstadoDoCadastro): boolean;
 begin
@@ -55,6 +52,8 @@ begin
      Result:= oUsuario.Inserir
   else if EstadoDoCadastro=ecAlterar then
      Result:= oUsuario.Atualizar;
+
+     TAcaoAcesso.PreencherUsuariosVsAcoes(dtmPrincipal.ConexaoDB);
 
 end;
 
@@ -97,6 +96,13 @@ procedure TfrmCadUsuario.btnNovoClick(Sender: TObject);
 begin
   inherited;
   edtNome.SetFocus;
+end;
+
+function TfrmCadUsuario.Excluir: boolean;
+begin
+if oUsuario.Selecionar(QryListagem.FieldByName('usuarioId').AsInteger) then begin
+     Result:=oUsuario.Apagar;
+  end;
 end;
 
 procedure TfrmCadUsuario.FormClose(Sender: TObject; var Action: TCloseAction);

@@ -44,8 +44,16 @@ inherited frmCadUsuario: TfrmCadUsuario
     end
   end
   inherited pgcPrincipal: TPageControl
-    ActivePage = tabManutencao
     inherited tabListagem: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 787
+      ExplicitHeight = 409
+      inherited pnlListagemTopo: TPanel
+        inherited mskPesquisar: TMaskEdit
+          Text = ''
+        end
+      end
       inherited grdListagem: TDBGrid
         Columns = <
           item

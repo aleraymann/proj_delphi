@@ -326,11 +326,11 @@ begin
     QryAcaoAcesso.SQL.Add('SELECT acaoAcessoId FROM acaoAcesso ');
     QryAcaoAcesso.Open;
 
-    while not Qry.Eof do
+    while not Qry.Eof do   //usuarios
     begin
       QryAcaoAcesso.First;
 
-      while not QryAcaoAcesso.Eof do
+      while not QryAcaoAcesso.Eof do      //acao acesso
       begin
         VerificarUsuarioAcao(Qry.FieldByName('usuarioId').AsInteger, QryAcaoAcesso.FieldByName('acaoAcessoId').AsInteger, aConexao);
         QryAcaoAcesso.Next;

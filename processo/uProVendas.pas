@@ -38,6 +38,10 @@ type
     QryListagemnome: TWideStringField;
     QryListagemdataVenda: TDateTimeField;
     QryListagemtotalVenda: TFloatField;
+    btnIncluirProduto: TSpeedButton;
+    btnPesquisaProduto: TSpeedButton;
+    btnIncluirCliente: TSpeedButton;
+    btnPesquisaCliente: TSpeedButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure dbgridItensVendaKeyDown(Sender: TObject; var Key: Word;
@@ -51,6 +55,10 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure btnApagarItemClick(Sender: TObject);
+    procedure btnIncluirClienteClick(Sender: TObject);
+    procedure btnIncluirProdutoClick(Sender: TObject);
+    procedure btnPesquisaClienteClick(Sender: TObject);
+    procedure btnPesquisaProdutoClick(Sender: TObject);
   private
     { Private declarations }
     dtmVendas: TdtmVendas;
@@ -61,7 +69,7 @@ type
     procedure LimparComponenteItem;
     procedure LimparCds;
     function TotalizarVenda: Double;
-    function Apagar: Boolean;
+    function Excluir: Boolean; override;
 
   public
     { Public declarations }
@@ -74,16 +82,12 @@ implementation
 
 {$R *.dfm}
 
-uses uRelVendaPorData, uRelVenda;
+uses uRelVendaPorData, uRelVenda, cFuncao,uCadCliente, cUsuarioLogado,uPrincipal,
+  uCadProduto,uConCliente,uConProduto, cCadCliente;
 
 
 {$region 'Override'}
-function TfrmProVenda.Apagar: Boolean;
-begin
-  if oVenda.Selecionar(QryListagem.FieldByName('vendaId').AsInteger, dtmVendas.cdsItensVenda) then begin
-     Result:=oVenda.Apagar;
-  end;
-end;
+
 
 function TfrmProVenda.Gravar(EstadoDoCadastro: TEstadoDoCadastro): boolean;
 begin
@@ -129,6 +133,62 @@ begin
 end;
 
 {$endregion}
+
+ procedure TfrmProVenda.btnIncluirClienteClick(Sender: TObject);
+begin
+  inherited;
+  TFuncao.CriarForm(TfrmCadCliente, oUsuarioLogado, dtmPrincipal.ConexaoDB);
+  lkpCliente.ListSource.DataSet.Close;
+  lkpCliente.ListSource.DataSet.open;
+end;
+
+procedure TfrmProVenda.btnIncluirProdutoClick(Sender: TObject);
+begin
+
+  inherited;
+   TFuncao.CriarForm(TfrmCadastroProduto, oUsuarioLogado, dtmPrincipal.ConexaoDB);
+   lkpProduto.ListSource.DataSet.Close;
+   lkpProduto.ListSource.DataSet.open;
+
+end;
+
+procedure TfrmProVenda.btnPesquisaClienteClick(Sender: TObject);
+begin
+  inherited;
+       try
+          frmConCliente:=TfrmConCliente.Create(Self);
+
+  if lkpCliente.KeyValue<>Null then
+     frmConCliente.aIniciarPesquisaId:=lkpCliente.KeyValue;
+
+  frmConCliente.ShowModal;
+
+  if frmConCliente.aRetornarIdSelecionado<>UnAssigned then  //Não Atribuido
+     lkpCliente.KeyValue:=frmConCliente.aRetornarIdSelecionado;
+       finally
+          frmConCliente.Release;
+       end;
+
+end;
+
+
+procedure TfrmProVenda.btnPesquisaProdutoClick(Sender: TObject);
+begin
+  inherited;
+    try
+          frmConProduto:=TfrmConProduto.Create(Self);
+
+  if lkpProduto.KeyValue<>Null then
+     frmConProduto.aIniciarPesquisaId:=lkpProduto.KeyValue;
+
+  frmConProduto.ShowModal;
+
+  if frmConProduto.aRetornarIdSelecionado<>UnAssigned then  //Não Atribuido
+     lkpProduto.KeyValue:=frmConProduto.aRetornarIdSelecionado;
+       finally
+          frmConProduto.Release;
+       end;
+end;
 
 procedure TfrmProVenda.btnAdicionarItemClick(Sender: TObject);
 begin
@@ -218,6 +278,7 @@ begin
   LimparCds;
 end;
 
+
 procedure TfrmProVenda.btnNovoClick(Sender: TObject);
 begin
   inherited;
@@ -243,6 +304,13 @@ procedure TfrmProVenda.edtQuantidadeExit(Sender: TObject);
 begin
   inherited;
   edtTotalProduto.Value:=TotalizarProduto(edtValorUnitario.Value, edtQuantidade.Value);
+end;
+
+function TfrmProVenda.Excluir: Boolean;
+begin
+if oVenda.Selecionar(QryListagem.FieldByName('vendaId').AsInteger, dtmVendas.cdsItensVenda) then begin
+     Result:=oVenda.Apagar;
+  end;
 end;
 
 procedure TfrmProVenda.FormClose(Sender: TObject; var Action: TCloseAction);

@@ -21,8 +21,11 @@ inherited frmCadCategoria: TfrmCadCategoria
     end
   end
   inherited pgcPrincipal: TPageControl
-    ActivePage = tabManutencao
     inherited tabListagem: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 787
+      ExplicitHeight = 409
       inherited pnlListagemTopo: TPanel
         inherited mskPesquisar: TMaskEdit
           Text = ''
@@ -45,8 +48,10 @@ inherited frmCadCategoria: TfrmCadCategoria
       end
     end
     inherited tabManutencao: TTabSheet
-      ExplicitLeft = 14
-      ExplicitTop = 24
+      ExplicitLeft = 7
+      ExplicitTop = 27
+      ExplicitWidth = 781
+      ExplicitHeight = 403
       object edtCategoriaID: TLabeledEdit
         Tag = 1
         Left = 16
